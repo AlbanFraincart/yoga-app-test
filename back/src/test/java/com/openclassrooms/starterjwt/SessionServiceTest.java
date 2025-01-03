@@ -15,7 +15,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -75,6 +78,77 @@ class SessionServiceTest {
         verify(sessionRepository, times(1)).save(mockSession);
     }
 
+    @Test
+    void delete_shouldCallDeleteById() {
+        // Arrange
+        Long sessionId = 1L;
 
+        // Act
+        sessionService.delete(sessionId);
+
+        // Assert
+        verify(sessionRepository, times(1)).deleteById(sessionId);
+    }
+
+    @Test
+    void update_shouldSaveUpdatedSession() {
+        // Arrange
+        Long sessionId = 1L;
+        Session updatedSession = new Session();
+        updatedSession.setName("Updated Name");
+
+        when(sessionRepository.save(updatedSession)).thenReturn(updatedSession);
+
+        // Act
+        Session result = sessionService.update(sessionId, updatedSession);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals("Updated Name", result.getName());
+        verify(sessionRepository, times(1)).save(updatedSession);
+    }
+
+    @Test
+    void participate_shouldThrowNotFoundException_whenSessionNotFound() {
+        // Arrange
+        Long sessionId = 1L;
+        Long userId = 2L;
+
+        when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(NotFoundException.class, () -> sessionService.participate(sessionId, userId));
+    }
+
+
+    @Test
+    void noLongerParticipate_shouldThrowNotFoundException_whenSessionNotFound() {
+        // Arrange
+        Long sessionId = 1L;
+        Long userId = 2L;
+
+        when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(NotFoundException.class, () -> sessionService.noLongerParticipate(sessionId, userId));
+    }
+
+    @Test
+    void findAll_shouldReturnAllSessions() {
+        // Arrange
+        List<Session> mockSessions = Arrays.asList(
+                new Session().setId(1L).setName("Session 1"),
+                new Session().setId(2L).setName("Session 2")
+        );
+        when(sessionRepository.findAll()).thenReturn(mockSessions);
+
+        // Act
+        List<Session> result = sessionService.findAll();
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        verify(sessionRepository, times(1)).findAll();
+    }
 
 }
