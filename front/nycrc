@@ -6,6 +6,7 @@
     "cypress/**",
     "./dist/**",
     "**/*.spec.ts",
+    "**/*.cy.ts",
     "./src/main.ts",
     "./src/test.ts",
     "**/*.conf.js"

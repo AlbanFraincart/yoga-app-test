@@ -41,3 +41,38 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add('loginAs', (user = { admin: false }) => {
+    // Simule un utilisateur connecté en modifiant le sessionStorage
+    cy.window().then((win) => {
+        win.sessionStorage.setItem(
+            'sessionInformation',
+            JSON.stringify({
+                token: 'fake-token',
+                type: 'Bearer',
+                id: 1,
+                username: 'testUser',
+                firstName: 'Test',
+                lastName: 'User',
+                admin: user.admin,
+            })
+        );
+    });
+
+    // Simule la configuration d'un cookie de session
+    cy.setCookie('JSESSIONID', 'fake-session-id');
+});
+
+// cypress/support/commands.ts
+Cypress.Commands.add('loginViaApi', () => {
+    cy.request('POST', '/api/auth/login', {
+        email: 'yoga@studio.com',
+        password: 'test!1234',
+    }).then((response) => {
+        // Simuler le stockage de session côté frontend
+        cy.window().then((win) => {
+            win.sessionStorage.setItem('sessionInformation', JSON.stringify(response.body));
+        });
+    });
+});
+
+
