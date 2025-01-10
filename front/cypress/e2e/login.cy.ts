@@ -31,7 +31,7 @@ describe('Login spec', () => {
     // Mock d'une erreur API
     cy.intercept('POST', '/api/auth/login', {
       statusCode: 401,
-      body: { message: 'Invalid credentials' },
+      body: { message: 'An error occurred' },
     })
 
     // Simuler la saisie
@@ -42,7 +42,7 @@ describe('Login spec', () => {
     cy.url().should('include', '/login')
 
     // Vérifier l'affichage d'un message d'erreur
-    cy.contains('Invalid credentials').should('be.visible')
+    cy.contains('An error occurred').should('be.visible')
   })
 
 

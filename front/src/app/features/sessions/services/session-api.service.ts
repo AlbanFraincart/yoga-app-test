@@ -14,6 +14,7 @@ export class SessionApiService {
   }
 
   public all(): Observable<Session[]> {
+    console.log('SessionApiService: calling /api/session');
     return this.httpClient.get<Session[]>(this.pathService);
   }
 
