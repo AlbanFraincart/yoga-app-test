@@ -34,4 +34,5 @@ build/
 *.DS_Store
 
 ### Application properties ###
+back/src/main/resources/application.properties.txt
 application.properties.txt
