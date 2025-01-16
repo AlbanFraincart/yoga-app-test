@@ -145,3 +145,45 @@ Cypress.Commands.add('login', (email = 'yoga@studio.com', password = 'test!1234'
     cy.url().should('include', '/sessions');
 });
 
+
+Cypress.Commands.add('loginNoAdmin', (email = 'yoga@studio.com', password = 'test!1234') => {
+    cy.visit('/login');
+
+    // Intercepter la requête de connexion
+    cy.intercept('POST', '/api/auth/login', {
+        body: {
+            id: 1,
+            username: 'userName',
+            firstName: 'firstName',
+            lastName: 'lastName',
+            admin: false,
+        },
+    }).as('loginRequest');
+
+    // Intercepter la requête de sessions
+    cy.intercept('GET', '/api/session', {
+        statusCode: 200,
+        body: [
+            {
+                id: 1,
+                name: 'Morning Yoga',
+                date: '2023-12-01',
+                description: 'A relaxing yoga session',
+            },
+            {
+                id: 2,
+                name: 'Evening Meditation',
+                date: '2023-12-02',
+                description: 'A calming meditation session',
+            },
+        ],
+    }).as('getSessions');
+
+    // Remplir les champs du formulaire de connexion
+    cy.get('input[formControlName=email]').type(email);
+    cy.get('input[formControlName=password]').type(`${password}{enter}{enter}`);
+
+    // Vérifier que la redirection est correcte
+    cy.url().should('include', '/sessions');
+});
+

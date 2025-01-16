@@ -36,7 +36,7 @@ describe('Login spec', () => {
 
     // Simuler la saisie
     cy.get('input[formControlName=email]').type("wrong@studio.com")
-    cy.get('input[formControlName=password]').type("wrongpassword{enter}")
+    cy.get('input[formControlName=password]').type("wrongpassword{enter}{enter}")
 
     // Vérifier que l'URL ne change pas
     cy.url().should('include', '/login')

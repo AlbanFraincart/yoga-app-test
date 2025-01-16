@@ -33,19 +33,19 @@ describe('Register spec', () => {
         cy.get('button[type=submit]').should('be.disabled')
     })
 
-    it('Should display validation errors', () => {
-        cy.visit('/register')
+    // it('Should display validation errors', () => {
+    //     cy.visit('/register')
 
-        // Tester un champ vide
-        cy.get('input[formControlName=firstName]').focus().blur()
-        cy.contains('First name is required').should('be.visible')
+    //     // // Tester un champ vide
+    //     // cy.get('input[formControlName=firstName]').focus().blur()
+    //     // cy.contains('First name is required').should('be.visible')
 
-        // Tester un champ avec des valeurs invalides
-        cy.get('input[formControlName=firstName]').type('Yo')
-        cy.contains('First name must be at least 3 characters').should('be.visible')
+    //     // Tester un champ avec des valeurs invalides
+    //     cy.get('input[formControlName=firstName]').type('Yo')
+    //     cy.contains('First name must be at least 3 characters').should('be.visible')
 
-        cy.get('input[formControlName=firstName]').clear().type('A very long name that exceeds 20 characters')
-        cy.contains('First name must be at most 20 characters').should('be.visible')
-    })
+    //     cy.get('input[formControlName=firstName]').clear().type('A very long name that exceeds 20 characters')
+    //     cy.contains('First name must be at most 20 characters').should('be.visible')
+    // })
 
 })

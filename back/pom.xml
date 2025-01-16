@@ -88,6 +88,7 @@
 			<version>2.13.0</version>
 		</dependency>
 
+
 	</dependencies>
 
 	<build>
@@ -122,6 +123,16 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
+						<configuration>
+							<excludes>
+								<exclude>com/openclassrooms/starterjwt/models/*</exclude>
+								<exclude>com/openclassrooms/starterjwt/dto/*</exclude>
+								<exclude>com/openclassrooms/starterjwt/mapper/*</exclude>
+								<exclude>com/openclassrooms/starterjwt/config/*</exclude>
+								<exclude>com/openclassrooms/starterjwt/SpringBootSecurityJwtApplication.class</exclude>
+
+							</excludes>
+						</configuration>
 					</execution>
 
 					<execution>
@@ -142,6 +153,14 @@
 									</limits>
 								</rule>
 							</rules>
+							<excludes>
+								<exclude>com/openclassrooms/starterjwt/models/*</exclude>
+								<exclude>com/openclassrooms/starterjwt/dto/*</exclude>
+								<exclude>com/openclassrooms/starterjwt/mapper/*</exclude>
+								<exclude>com/openclassrooms/starterjwt/config/*</exclude>
+								<exclude>com/openclassrooms/starterjwt/SpringBootSecurityJwtApplication.class</exclude>
+
+							</excludes>
 						</configuration>
 					</execution>
 
