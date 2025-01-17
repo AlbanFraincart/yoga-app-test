@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.mockito.ArgumentMatchers.any;
 
 
-class TeacherControllerTest {
+class TeacherControllerIT {
 
     private MockMvc mockMvc;
 

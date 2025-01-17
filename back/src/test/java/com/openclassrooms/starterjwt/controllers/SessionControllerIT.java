@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class SessionControllerTest {
+class SessionControllerIT {
 
     private MockMvc mockMvc;
 
